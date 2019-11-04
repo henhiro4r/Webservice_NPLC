@@ -4,7 +4,7 @@ $value = json_decode(file_get_contents('php://input'));
 //data from fragment history
 $id = $value->id;
 
-$data = $db->query("SELECT * from thread_game WHERE (tim1 = $id OR tim2 = $id) AND is_done = '1' ");
+$data = $db->query("SELECT * from histories WHERE (teamA = $id OR teamB = $id) AND is_done = '1'");
 $jum = mysqli_num_rows($data);
 $response["history"] = array();
 
