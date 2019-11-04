@@ -8,7 +8,7 @@ $game_check = $db->query('SELECT id,type,code FROM games WHERE id = $play_id');
 $photo_check = $db->query('SELECT id,code,badge FROM photos WHERE id = $play_id');
 
 if ($game_check || $photo_check) {
-	if ($game_check) {
+	if ($game_check) { // if game
 		$his_check = $db->query('SELECT * FROM histories WHERE game_id = $play_id AND is_done = "0"');
 		if ($his_check) {
 			$fetch_his = mysqli_fetch_assoc($his_check);
@@ -21,8 +21,14 @@ if ($game_check || $photo_check) {
 		} else {
 			# insert to hostories
 		}
-	} elseif ($photo_check) {
+	} elseif ($photo_check) { // if photo
 		# insert to photo_play
+		$play = $db->query("INSERT INTO photo_plays VALUES(null, $play_id, $user_id, $time, $time)");
+		if ($play) {
+			send('Success!');
+		} else {
+			send('Something wrong, please try again!');
+		}
 	}
 	
 } else {

@@ -2,9 +2,9 @@
 include('config.php');
 $value = json_decode(file_get_contents('php://input'));
 //data from logout
-$id = $value->id;
+$user_id = $_POST['user_id']; #$value->id
 
-$update = $db->query("UPDATE peserta SET is_login = '0', last_logout = $now, updated_at = $now WHERE id = $id ");
+$update = $db->query("UPDATE users SET is_login = '0', last_logout = '$time', updated_at = '$time' WHERE id = $user_id ");
 if ($update) {
 	kirim("out_ok");
 }else{

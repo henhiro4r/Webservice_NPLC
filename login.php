@@ -19,8 +19,12 @@ if ($check) {
             $user["point_now"] = $get['point_now'];
             $user["msg"] = "welcome";
             $update = $db->query("UPDATE users SET is_login = '1', last_login = '$time', updated_at = '$time' WHERE username = '$username'");
-            array_push($response["user"], $user);
-            echo json_encode($response);
+            if ($update) {
+                array_push($response["user"], $user);
+                echo json_encode($response);
+            }else{
+                send('Log in failed, please try again!');
+            }
         } else {
             send('Incorrect password!');
         }
