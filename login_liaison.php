@@ -2,11 +2,11 @@
 include ('config.php');
 $value = json_decode(file_get_contents('php://input'));
 //get data user from login activity
-$username = $_POST['username']; # $value->username //wizozi
+$username = $_POST['username']; # $value->username //lohenry
 $password = $_POST['password']; # $value->password //ekonom4r
 
 $check = $db->query("SELECT * FROM users WHERE username = '$username' AND role_id = 2");
-$get = mysqli_fetch_assoc($cek_hod);
+$get = mysqli_fetch_assoc($check);
 
 $response["liaison"] = array();
 
@@ -19,17 +19,18 @@ if ($check) {
 
         if (password_verify($password, $get['password']) == true && $get['status'] == 'E' && $get['is_login'] == '0') {
             $id = $get['id'];
-            $pic = $db->query("SELECT qr_code, title FROM games WHERE liaison_id = $id");
+            $pic = $db->query("SELECT title, qr_code, type FROM games WHERE liaison_id = $id");
             $get_info = mysqli_fetch_assoc($pic);
             $user = array();
             $user["id"] = $get['id'];
             $user["name"] = $get['name'];
             $user['game_title'] = $get_info['title'];
             $user['qrcode'] = $get_info['qr_code'];
+            $user['type'] = $get_info['type'];
             $user["msg"] = "welcome";
             $update = $db->query("UPDATE users SET is_login = '1', last_login = '$time', updated_at = '$time' WHERE username = '$username'");
             if ($update) {
-                array_push($response["user"], $user);
+                array_push($response["liaison"], $user);
                 echo json_encode($response);
             }else{
                 send('Log in failed, please try again!');

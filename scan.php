@@ -64,10 +64,10 @@ if ($game_check || $photo_check) {
 }
 
 function send($message){	
-    $response["user"] = array();
-	$user = array();
-	$user["msg"] = $message;
-	array_push($response["user"], $user);
+    $response["msg"] = $message;
+	// $user = array();
+	// $user["msg"] = $message;
+	// array_push($response["user"], $user);
 	echo json_encode($response);
 }
 ?>

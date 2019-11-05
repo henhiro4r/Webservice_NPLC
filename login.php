@@ -33,11 +33,12 @@ if ($check) {
     send('Account not found!');
 }
 
-function send($message){
-    $response["user"] = array();
-	$user = array();
-	$user["msg"] = $message;
-	array_push($response["user"], $user);
-	echo json_encode($response);
+
+function send($message){    
+    $response["user"] = $message;
+    // $user = array();
+    // $user["msg"] = $message;
+    // array_push($response["user"]);
+    echo json_encode($response);
 }
 ?>
