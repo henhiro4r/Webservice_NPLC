@@ -6,12 +6,12 @@ $user_id = $_POST['user_id']; #$value->id
 
 $update = $db->query("UPDATE users SET is_login = '0', last_logout = '$time', updated_at = '$time' WHERE id = $user_id ");
 if ($update) {
-	kirim("out_ok");
+	send("out_ok");
 }else{
-	kirim("out_no");
+	send("out_no");
 }
 
-function kirim($message){
+function send($message){
 	$response["out"] = array();
 	$out = array();
 	$out["msg"] = $message;

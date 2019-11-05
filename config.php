@@ -6,7 +6,7 @@ define('DB_HOST', 'localhost');
 define('DB_CHARSET', 'utf8mb4');
 define('DB_COLLATE', '');
 
-$db = new mysqli("localhost", "root", "", "rally_7th"); #rally #rally_7th
+$db = new mysqli("localhost", "root", "", "rally"); #rally #rally_7th
 $now = new DateTime("now", new DateTimeZone('Asia/Jakarta'));
 $time = $now->format('Y-m-d H:i:s');
 // $now = "ADDTIME(now(),'07:00')";
