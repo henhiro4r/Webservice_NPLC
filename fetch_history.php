@@ -9,6 +9,7 @@ $jum = mysqli_num_rows($data);
 $response["history"] = array();
 
 if($jum > 0){
+    $response["message"] = $jum;
     while ($val = mysqli_fetch_assoc($data)) {
         if($val['teamA'] == $user_id){
             $his = array();
@@ -35,7 +36,7 @@ if($jum > 0){
 
 
 function send($message){
-    $response["history"] = $message;
+    $response["message"] = $message;
 	// $his = array();
 	// $his["msg"] = $message;
 	// array_push($response["history"], $his);

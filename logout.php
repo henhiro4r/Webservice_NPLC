@@ -12,10 +12,10 @@ if ($update) {
 }
 
 function send($message){
-	$response["out"] = array();
-	$out = array();
-	$out["msg"] = $message;
-	array_push($response["out"], $out);
+	$response["out"] = $message;
+	// $out = array();
+	// $out["msg"] = $message;
+	// array_push($response["out"], $out);
 	echo json_encode($response);
 }
  ?>

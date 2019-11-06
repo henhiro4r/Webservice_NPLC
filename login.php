@@ -5,7 +5,7 @@ $username = $_POST['username']; # $value->username //wizozi
 $password = $_POST['password']; # $value->password //ekonom4r
 $check = $db->query("SELECT * FROM users WHERE username = '$username' AND role_id = 3");
 $get = mysqli_fetch_assoc($check);
-$response["user"] = array();
+$response = array();
 if ($check) {
     if ($get['is_login'] == 1 && $get['status'] == 'E') {
         send('Account in use!');
@@ -17,10 +17,10 @@ if ($check) {
             $user["id"] = $get['id'];
             $user["name"] = $get['name'];
             $user["point_now"] = $get['point_now'];
-            $user["msg"] = "welcome";
             $update = $db->query("UPDATE users SET is_login = '1', last_login = '$time', updated_at = '$time' WHERE username = '$username'");
             if ($update) {
-                array_push($response["user"], $user);
+                $response["message"] = "welcome";
+                $response["user"] = $user;
                 echo json_encode($response);
             }else{
                 send('Log in failed, please try again!');
@@ -35,7 +35,7 @@ if ($check) {
 
 
 function send($message){    
-    $response["user"] = $message;
+    $response["message"] = $message;
     // $user = array();
     // $user["msg"] = $message;
     // array_push($response["user"]);

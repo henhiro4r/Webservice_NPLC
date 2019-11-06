@@ -8,9 +8,9 @@ $password = $_POST['password']; # $value->password //ekonom4r
 $check = $db->query("SELECT * FROM users WHERE username = '$username' AND role_id = 2");
 $get = mysqli_fetch_assoc($check);
 
-$response["liaison"] = array();
+$response = array();
 
-if ($check) {
+if ($check->num_rows == 1) {
     if ($get['is_login'] == 1 && $get['status'] == 'E') {
         send('Account in use!');
     } elseif ($get['status'] == 'D' && $get['is_login'] == '0' || $get['is_login'] == '1') {
@@ -27,10 +27,12 @@ if ($check) {
             $user['game_title'] = $get_info['title'];
             $user['qrcode'] = $get_info['qr_code'];
             $user['type'] = $get_info['type'];
-            $user["msg"] = "welcome";
+            // $user["msg"] = "welcome";
             $update = $db->query("UPDATE users SET is_login = '1', last_login = '$time', updated_at = '$time' WHERE username = '$username'");
             if ($update) {
-                array_push($response["liaison"], $user);
+                $response["message"] = "welcome";
+                $response["liaison"] = $user;
+                // array_push($response["liaison"], $user);
                 echo json_encode($response);
             }else{
                 send('Log in failed, please try again!');
@@ -44,10 +46,10 @@ if ($check) {
 }
 
 function send($message){
-    $response["user"] = array();
-    $user = array();
-    $user["msg"] = $message;
-    array_push($response["user"], $user);
+    $response["message"] = $message;
+    // $user = array();
+    // $user["msg"] = $message;
+    // array_push($response["user"], $user);
     echo json_encode($response);
 }
 ?>

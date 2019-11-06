@@ -64,7 +64,7 @@ if ($game_check || $photo_check) {
 }
 
 function send($message){	
-    $response["msg"] = $message;
+    $response["scan"] = $message;
 	// $user = array();
 	// $user["msg"] = $message;
 	// array_push($response["user"], $user);
