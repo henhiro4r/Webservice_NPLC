@@ -2,8 +2,8 @@
 include ('config.php');
 $value = json_decode(file_get_contents('php://input'));
 //get data user from login activity
-$username = $_POST['username']; # $value->username //lohenry
-$password = $_POST['password']; # $value->password //ekonom4r
+$username = $_POST['username']; # $value->username
+$password = $_POST['password']; # $value->password
 
 $check = $db->query("SELECT * FROM users WHERE username = '$username' AND role_id = 2");
 $get = mysqli_fetch_assoc($check);

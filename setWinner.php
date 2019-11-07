@@ -9,10 +9,6 @@ $resultB = $_POST['resultB']; # $value->resultB;
 $game_id = $_POST['game_id']; # $value->game_id;
 $type = $_POST['type'] # $value->game_id;
 
-// 100 win
-// 50 draw
-// 25 lose
-
 $check = $db->query('SELECT * FROM histories WHERE game_id = $game_id AND is_done = "0"');
 
 if ($check->num_rows == 1) {
