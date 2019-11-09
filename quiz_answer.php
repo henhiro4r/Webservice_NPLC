@@ -16,7 +16,9 @@ if ($quiz_check->num_rows == 1) {
 		if ($answer == $dataQuiz['answer']) {
 			$update = $db->query("UPDATE quiz_plays SET try = try-1, is_right = '1', updated_at='$time'");
 			if ($update) {
-				send('Congratulation'); //Congratulation, you can proceed to next level!
+				$response['status'] = 3;
+				$response['message'] = "Congratulation";
+				echo json_encode($response); //Congratulation, you can proceed to next level!
 			} else {
 				send('Something wrong, please try again!');
 			}
@@ -41,9 +43,6 @@ if ($quiz_check->num_rows == 1) {
 
 function send($message){
 	$response["answer"] = $message;
-	// $user = array();
-	// $user["msg"] = $message;
-	// array_push($response["msg"]);
 	echo json_encode($response);
 }
 ?>
