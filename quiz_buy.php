@@ -18,12 +18,7 @@ if ($quiz_check) {
 			$ins = $db->query("INSERT INTO quiz_plays VALUES(null, $quiz_id, $user_id, 3, '0', '$time', '$time')");
 			$update = $db->query("UPDATE users SET point_now = point_now-500, point_used = point_used+500 WHERE id = $user_id");
 			if ($ins && $update) {
-				$buyQuiz = array();
-				$buyQuiz['chance'] = "3";
-				$buyQuiz['status'] = "1";
-				$response['buy'] = $buyQuiz;
-				$response["message"] = "Good Luck!";
-				echo json_encode($response);
+				send('Good Luck!');
 			}
 		}
 	} else {

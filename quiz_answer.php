@@ -16,9 +16,7 @@ if ($quiz_check->num_rows == 1) {
 		if ($answer == $dataQuiz['answer']) {
 			$update = $db->query("UPDATE quiz_plays SET try = try-1, is_right = '1', updated_at='$time'");
 			if ($update) {
-				$response['status'] = 3;
-				$response['message'] = "Congratulation";
-				echo json_encode($response); //Congratulation, you can proceed to next level!
+				send('Congratulation'); //Congratulation, you can proceed to next level!
 			} else {
 				send('Something wrong, please try again!');
 			}
@@ -27,8 +25,12 @@ if ($quiz_check->num_rows == 1) {
 				send('3 attempt used, good luck next time!');
 			} else {
 				$update = $db->query("UPDATE quiz_plays SET try = try-1, updated_at='$time'");
-				if ($update) {
-					send('Oops, wrong answer!');
+				if ($update && $his_data['try'] > 1) {
+					$response["chance"] = $his_data['try'] - 1;
+					$response["message"] = "Oops, Wrong answer!";
+					echo json_encode($response);
+				} elseif ($update && $his_data['try'] == 1) {
+					send('Used all chance');
 				} else {
 					send('Something wrong, please try again!');
 				}
@@ -42,7 +44,7 @@ if ($quiz_check->num_rows == 1) {
 }
 
 function send($message){
-	$response["answer"] = $message;
+	$response["message"] = $message;
 	echo json_encode($response);
 }
 ?>

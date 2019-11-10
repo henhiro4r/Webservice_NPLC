@@ -14,18 +14,23 @@ if ($query->num_rows == 1) {
 		$a = mysqli_fetch_assoc($his);
 		if ($his->num_rows == 1 && $a["is_right"] == 0 && $a["try"] != 0) {
 			$status = 1; //buyed not answered
+			$chance = $a["try"];
 		} else if ($his->num_rows == 1 && $a["is_right"] == 0 && $a["try"] == 0) {
 			$status = 2; //buyed wrong answer 3 times
+			$chance = 0;
 		} else if ($his->num_rows == 1 && $a["is_right"] == 1 && $a["try"] >= 0 ){
 			$status = 3; //buyed correct answer
+			$chance = 0;
 		} else {
 			$status = 0; //not buyed
+			$chance = 3;
 		}
 		$qui = array();
 		$qui['id'] = $quiz['id'];
 		$qui['title'] = $quiz['title'];
 		$qui['question'] = $quiz['question'];
 		$qui['price'] = $quiz['price'];
+		$qui['chance'] = $chance;
 		$qui['status'] = $status;
 		array_push($response['quiz'], $qui);
 	}
